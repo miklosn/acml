@@ -1,0 +1,166 @@
+<head>
+  <title>Obks</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="wick.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+  
+  <script>
+
+    </script>
+  
+</head>
+
+<body>
+	<div class="container">
+  {{> Menu }}
+  
+  {{> Main }}
+
+  </div>
+</body>
+
+<template name="Main">
+    <div class="row">
+	
+  	{{#if page_is "objects"}}
+		{{> Objs }}
+	{{/if}}
+	 
+	{{#if page_is "acls"}}
+		{{> Acls }}
+	{{/if}}
+
+  </div>
+</template>
+
+<template name="Objs">
+		<table class="table">
+			<thead><tr>
+			
+				<th>
+				Name
+				</th>
+				<th>
+				Value
+				</th></tr>
+			</thead>
+						<tbody>
+
+    {{#each Objlist}}
+						<tr>
+							<td>{{Name}} <img src="delete-orig.png" class="delObjectButton" id="delObjectButton_{{_id}}"/></td>
+							<td>
+								{{#each Values}}
+									{{value}}  <img src="delete-orig.png" class="delValueButton" id="delValueButton_{{_id}}"/> <br/>
+								{{/each}}
+								<input type="text" id="newvalue_{{_id}}" /> <input type="submit" id="newvaluesubmit" />
+							</td>
+						</tr>
+	{{/each}}
+   
+						</tbody>
+					</table
+
+	<div id="errorDialog">
+	</div>
+	<div>
+	<input type="text" id="newobjectname" />
+	<input type="submit" id="newobjectsubmit" />
+	</div>
+</template>
+
+<template name="Acls">	
+<h1>ACLs</h1>
+<div class="row">
+<div class="span3">
+<ul>
+{{#each Acllist}}
+<li class="acllist"><a href="#">{{Name}}</a>  </li>
+{{/each}}
+</ul>
+
+	<div class="form-search ">
+	<input type="text" class="input-small" id="newaclname" placeholder="ACL name" />
+	<button type="submit" class="btn btn-primary" id="newaclsubmit">Add</button>
+	<div id="aclErrorDialog">
+	</div>
+
+	</div>
+
+</div>
+
+<div class="span9 hidden" id="editor">
+	<div class="row">
+		<div class="span6">
+			<h1 id="aclTitle">asd</h1>
+		</div>
+		<div class="span3">
+			<div class="btn-group">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					Action
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li id="parsesubmit"><a href="#">Save</a></li>
+					<li id="deleteacl"><a href="#">Delete ACL</a></li>
+					<li id="generate"><a href="#">Show generated ACL</a></li>
+				</ul>
+			</div>
+		</div>		
+	</div>
+	
+		<div>
+			<p>Refer to objects in entries as $object. Include other ACLs with #include ACL</p>
+		
+			<textarea id="aclcontent" class="input-small styled kiegeszites" rows="15">
+				
+			</textarea>
+		</div>
+
+	<div id="generatedContent">
+		<p>Copy and paste these lines to your device:</p>
+		<textarea id="generatedaclcontent" class="input-xlarge styled hidden" rows="15">
+	
+		</textarea>
+	</div>
+
+	
+</div>
+
+
+	
+
+	
+	</div>
+	
+
+	
+
+</template>
+
+<template name="Menu">
+  <div class="row">
+  <div class="navbar">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="#">ACML</a>
+       <ul class="nav" id="navbar">
+          <li id="nav-objects"><a href="#">Objects</a></li>
+          <li id="nav-acls"><a href="#">ACLs</a></li>
+        </ul>
+       <div class="nav-collapse" id="main-menu">
+         <ul class="nav pull-right" id="main-menu-right">
+         </ul>
+       </div>
+     </div>
+   </div>
+  </div>
+  </div>
+</template>
